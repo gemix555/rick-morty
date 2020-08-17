@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axiosInstance from '@/api/index'
-import {CHARACTERS_BY_PAGE} from '@/api/routes'
+import {CHARACTERS_BY_PAGE, CHARACTER_BY_ID} from '@/api/routes'
 
 
 Vue.use(Vuex)
@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setCharacters(state, {page, characters}) {
-      state.characters[page] = characters 
+      state.characters[page] = characters
     },
     setPages(state, pages) {
       state.pages = pages
@@ -27,24 +27,31 @@ export default new Vuex.Store({
       }
       return axiosInstance.get(CHARACTERS_BY_PAGE(page))
       .then(({data}) => {
-        const {info, results} = data  
+        const {info, results} = data
+        //console.log('Data', data)
         commit('setCharacters', {page, characters: results})
         commit('setPages', info.pages)
       })
       .catch(err => console.log(err))
+    },
+    fetchSingleCharacter(_, id) {
+      return axiosInstance.get(CHARACTER_BY_ID(id))
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => console.log(err))
     }
   },
   getters: {
-    getCharacterById: (state) => ({page, id}) => {
+    getCharacterById: (state) => ({id, page }) => {
       const pageCharacters = state.characters[page]
       if(pageCharacters) {
-         return pageCharacters.find(char => char.id === id)
+         return pageCharacters.find(character => character.id === id)
       }
       return null
     },
     getCharacterByPage: (state) => (page) => {
-      const pageCharacters = state.characters[page]
-      return pageCharacters;
+      return state.characters[page]
       }
   }
 })

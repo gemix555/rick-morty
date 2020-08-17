@@ -4,14 +4,20 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.pagination {
+
+}
 .character-block {
   display: flex;
-  justify-content: row;
+  justify-content: space-between;
+  background-color: beige;
   width: 22%;
   margin: 10px;
 
+
     &__image img{
-      width: 150px;
+      width: 100px;
       height: auto;
     }
     &__info {

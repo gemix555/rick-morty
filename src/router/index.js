@@ -11,11 +11,11 @@ Vue.use(VueRouter)
     name: 'RickAndMortyList',
     component: RickAndMortyList
   },
-  {
-    path: '/character',
-    name: 'RickAndMortyCharacter',
-    component: RickAndMortyCharacter
-  }
+    {
+      path: '/character/:id',
+      name: 'CharacterDetails',
+      component: RickAndMortyCharacter
+    }
 ]
 
 const router = new VueRouter({
