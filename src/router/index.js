@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import RickAndMortyList from '../views/RickAndMortyList.vue'
-import RickAndMortyCharacter from '../views/RickAndMortyCharacter.vue'
+// import RickAndMortyList from '../views/RickAndMortyList.vue'
+// import RickAndMortyCharacter from '../views/RickAndMortyCharacter.vue'
+
+const  RickAndMortyList = () => import('../views/RickAndMortyList.vue')
+const  RickAndMortyCharacter = () => import('../views/RickAndMortyCharacter.vue')
 
 Vue.use(VueRouter)
 
