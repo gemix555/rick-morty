@@ -1,7 +1,10 @@
 <template>
   <div class="about">
     <h2>This is Character</h2>
-    <character-block :character="character"/>
+    <character-block
+        v-if="character"
+        :character="character"
+    />
     <button @click="goBack">Go Back</button>
   </div>
 </template>
@@ -9,7 +12,7 @@
 import CharacterBlock from '@/components/CharacterBlock.vue'
 export default  {
   name: 'rick-and-morty-character',
-  comments: {CharacterBlock},
+  components: {CharacterBlock},
   data(){
     return {
       character: null
@@ -21,10 +24,16 @@ export default  {
     }
   },
  async created() {
-   const {id} = this.$route.params
-    if(id) {
-       this.character = await this.$store.dispatch('fetchSingleCharacter', id)
+    try {
+      const {id} = this.$route.params
+      if(id) {
+        const {data} = await this.$store.dispatch('fetchSingleCharacter', id)
+        this.character = data
+      }
+    }catch (e) {
+      console.log(e)
     }
+
   }
 }
 </script>
